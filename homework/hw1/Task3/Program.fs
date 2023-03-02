@@ -6,4 +6,4 @@ let reverse list =
         | head :: tail -> recReverse (head :: acc) tail
     recReverse [] list
     
-printfn $"{reverse [0; 1; 2; 3; 4; 5]}"
+printfn "%A" <| reverse [0..5]

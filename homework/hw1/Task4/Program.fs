@@ -12,5 +12,5 @@ let rec powersOfTwoList n m =
             | _ when counter < m - n -> previous * 2UL :: recPowersOfTwoList (previous * 2UL) n m (counter + 1)
             | _ -> []
     recPowersOfTwoList 1UL n m 0
-    
-printfn $"{powersOfTwoList 0 10}"
+
+printfn "%A" <| powersOfTwoList 0 10

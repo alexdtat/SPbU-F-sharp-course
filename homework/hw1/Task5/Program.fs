@@ -8,4 +8,4 @@ let findFirstEntrance list element =
         | _ :: tail -> recFindFirstEntrance tail element (counter + 1)
     recFindFirstEntrance list element 0
 
-printfn $"{findFirstEntrance [0;1;2;3] 3}"
+printf $"{findFirstEntrance [0..5] 3}"
