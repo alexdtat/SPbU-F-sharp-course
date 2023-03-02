@@ -9,8 +9,10 @@ let rec powersOfTwoList n m =
         match counter with
             | 0 -> let firstElement = fastPower 2UL n 1UL
                    firstElement :: recPowersOfTwoList firstElement n m 1
-            | _ when counter < m - n -> previous * 2UL :: recPowersOfTwoList (previous * 2UL) n m (counter + 1)
+            | _ when counter <= m ->
+                let newElement = previous * 2UL
+                newElement :: recPowersOfTwoList newElement n m (counter + 1)
             | _ -> []
     recPowersOfTwoList 1UL n m 0
 
-printfn "%A" <| powersOfTwoList 0 10
+printfn "%A" <| powersOfTwoList 0 12
