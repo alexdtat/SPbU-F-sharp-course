@@ -15,4 +15,4 @@ let rec powersOfTwoList n m =
             | _ -> []
     recPowersOfTwoList 1UL n m 0u
 
-printfn "%A" <| powersOfTwoList 0u 12u
+printfn $"%A{powersOfTwoList 0u 12u}"
