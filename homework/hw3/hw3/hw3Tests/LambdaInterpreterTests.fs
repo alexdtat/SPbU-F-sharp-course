@@ -31,7 +31,7 @@ let YCombinatorTest () =
     Check.QuickThrowOnFailure YCombinatorEquality
 
 [<Test>]
-let simpleTest1 () =
+let betaReductionTest1 () =
     let term =
         Application(
             LambdaAbstraction("z", Var "y"),
@@ -50,7 +50,7 @@ let simpleTest1 () =
     (boundVariables term, expectedBound) ||> should equal
 
 [<Test>]
-let simpleTest2 () =
+let betaReductionTest2 () =
     let term = Application(LambdaAbstraction("x", Var "x"), Var "z")
 
     let expectedTerm = Var "z"
@@ -62,7 +62,7 @@ let simpleTest2 () =
     (boundVariables term, expectedBound) ||> should equal
 
 [<Test>]
-let simpleTest3 () =
+let betaReductionTest3 () =
     let term = Application(LambdaAbstraction("x", Var "z"), Var "x")
 
     let expectedTerm = Var "z"
