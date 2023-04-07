@@ -14,7 +14,7 @@ module LambdaInterpreter =
             | Var name -> continuation (Set.singleton name)
             | Application (left, right) ->
                 freeVariablesCPS left (fun l -> freeVariablesCPS right (fun r -> continuation (Set.union l r)))
-            | LambdaAbstraction (name, term) -> freeVariablesCPS term (fun t -> continuation (Set.remove name t))
+            | LambdaAbstraction (name, term) -> freeVariablesCPS term (fun v -> continuation (Set.remove name v))
 
         freeVariablesCPS term id
 
@@ -24,7 +24,7 @@ module LambdaInterpreter =
             | Var _ -> continuation Set.empty
             | Application (left, right) ->
                 boundVariablesCPS left (fun l -> boundVariablesCPS right (fun r -> continuation (Set.union l r)))
-            | LambdaAbstraction (name, term) -> boundVariablesCPS term (fun t -> continuation (Set.add name t))
+            | LambdaAbstraction (name, term) -> boundVariablesCPS term (fun v -> continuation (Set.add name v))
 
         boundVariablesCPS term id
 
@@ -73,7 +73,8 @@ module LambdaInterpreter =
             LambdaAbstraction(lVar, body)
         | LambdaAbstraction (lVar, body) -> LambdaAbstraction(newVariable, substitute lVar body (Var newVariable))
 
-    let betaReduction isRecursive term =
+
+    let rec private betaReductionAbstract isRecursive term =
         let rec reduce isRecursive term =
             match term with
             | Var variable -> Var variable
@@ -86,7 +87,9 @@ module LambdaInterpreter =
 
         reduce isRecursive term
 
-    let eval term = betaReduction true term
+    let betaReduction term = betaReductionAbstract false term
+
+    let eval term = betaReductionAbstract true term
 
     let etaReduction term =
         let rec reduce term =

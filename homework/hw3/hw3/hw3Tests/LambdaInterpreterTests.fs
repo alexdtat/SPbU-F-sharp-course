@@ -20,13 +20,16 @@ let YCombinatorTest () =
                 Application(appTerm, appTerm)
             )
 
-        let newVar = Variable (generateUniqueName (Set.add (Variable "x") (freeVariables f)))
+        let newVar = Variable(generateUniqueName (Set.add (Variable "x") (freeVariables f)))
         let alphaConverted = alphaConversion newVar (Application(YCombinator, f))
-        (Application(f, betaReduction false alphaConverted) = betaReduction
-                                                                                false
-                                                                                (betaReduction
-                                                                                    false
-                                                                                    alphaConverted))
+
+        (Application(f, betaReduction alphaConverted) = betaReduction
+
+        (
+            betaReduction
+
+                alphaConverted
+        ))
 
     Check.QuickThrowOnFailure YCombinatorEquality
 
