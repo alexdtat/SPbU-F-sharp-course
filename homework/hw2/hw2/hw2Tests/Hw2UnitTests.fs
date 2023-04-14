@@ -117,8 +117,11 @@ let testTreeMap () =
 
     let testEquality inp transformation =
         areEqualAfterTransformation inp (map transformation inp) transformation
+    let testEqualityCPS inp transformation =
+        areEqualAfterTransformation inp (mapCPS transformation inp) transformation
 
     Check.QuickThrowOnFailure testEquality
+    Check.QuickThrowOnFailure testEqualityCPS
 
 [<Test>]
 let testPrimes () =
