@@ -9,9 +9,4 @@
         <Compile Include="LambdaInterpreter.fs" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Include="preamble.tex" />
-      <Content Include="Task1.tex" />
-    </ItemGroup>
-
 </Project>

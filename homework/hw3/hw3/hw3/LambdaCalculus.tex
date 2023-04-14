@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{mathtools} % Required for inserting images
+
+\title{LambdaCalculus}
+\author{Tatyanenko Alexey}
+\date{April 2023}
+
+\begin{document}
+
+    \section{Task 1}
+    \begin{align*}
+            & ((\lambda a.(\lambda b.b\ b)\ (\lambda b.b\ b))\ b)\ ((\lambda c.(c\ b))\ (\lambda a.a)) \\
+            \to_\beta{} & ((\lambda b.b\ b)\ (\lambda b.b\ b))[a \coloneq b]\ ((\lambda c.(c\ b))\ (\lambda a.a)) \\
+            ={}         & ((\lambda b.b\ b)\ (\lambda b.b\ b))\ ((\lambda c.(c\ b))\ (\lambda a.a)) \\
+            ={} & (\omega \omega)\ ((\lambda c.(c\ b))\ (\lambda a.a)) \\
+            ={} & \Omega\ ((\lambda c.(c\ b))\ (\lambda a.a)) \\
+    \end{align*}
+    \section{Task 2}
+    \sloppy
+    \begin{align*}
+        S\ K\ K\\
+        ={} & (\lambda xyz.x\ z\ (y\ z))\ K\ K \\
+        \to_\beta & (\lambda yz.((x\ z\ (y\ z))\ [x \coloneq K]))\ K \\
+        ={} & (\lambda yz.(K\ z\ (K\ z))) \\
+        \to_\beta & \lambda z.((K\ z\ (y\ z))\ [y \coloneq K]) \\
+        ={} & \lambda z.K\ z\ (K\ z) \\
+        ={} & \lambda z.(\lambda xy.x)\ z\ (K\ z) \\
+        \to_\beta & \lambda z.(\lambda y.x [x \coloneq z])\ (K\ z) \\
+        ={} & \lambda z.(\lambda y.z)\ (K\ z) \\
+        \to_\beta & \lambda z.(z\ [y \coloneq (K\ z)]) \\
+        ={} & \lambda z.z \\
+        \to_\alpha & \lambda x.(z\ [z \coloneq x]) \\
+        ={} & \lambda x.x \\
+        ={} & I
+    \end{align*}
+
+\end{document}
