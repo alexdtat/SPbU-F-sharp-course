@@ -8,7 +8,7 @@ module Tree =
     let map transform tree =
         let rec mapRec tree =
             match tree with
-            | Tree (value, l, r) -> Tree((transform value), (mapRec l), (mapRec r))
+            | Tree (value, l, r) -> Tree(transform value, mapRec l, mapRec r)
             | Empty -> Empty
 
         mapRec tree
