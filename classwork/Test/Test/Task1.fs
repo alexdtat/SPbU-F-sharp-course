@@ -16,7 +16,3 @@ let supermap functions list =
             eval revFunctions acc |> iterate t
 
     iterate revArguments []
-    
-let twice number = number * 2
-let minusTwice number = number * -2
-([(*) 2; (*) -2], [1; 2; 3]) ||> supermap |> List.iter (fun el -> printf $"%A{el} ")
