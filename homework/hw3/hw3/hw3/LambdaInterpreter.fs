@@ -99,6 +99,6 @@ module LambdaInterpreter =
             | LambdaAbstraction (lVar, body) ->
                 match body with
                 | Application (l, r) when r = Var lVar -> reduce l
-                | _ -> LambdaAbstraction(lVar, body)
+                | _ ->term
 
         reduce term
