@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <RootNamespace>hw4</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Task1.fs" />
+        <Compile Include="Task2.fs" />
+    </ItemGroup>
+
+</Project>
