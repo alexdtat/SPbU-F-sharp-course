@@ -77,13 +77,11 @@ module LambdaInterpreter =
     let rec private betaReductionAbstract isRecursive term =
         let rec reduce isRecursive term =
             match term with
-            | Var variable -> Var variable
             | Application (LambdaAbstraction (lVar, body), substitutedTerm) ->
                 match isRecursive with
                 | false -> substitute lVar body substitutedTerm
                 | true -> reduce isRecursive (substitute lVar body substitutedTerm)
-            | Application (l, r) -> Application(l, r)
-            | LambdaAbstraction (lVar, body) -> LambdaAbstraction(lVar, body)
+            | _ -> term
 
         reduce isRecursive term
 
