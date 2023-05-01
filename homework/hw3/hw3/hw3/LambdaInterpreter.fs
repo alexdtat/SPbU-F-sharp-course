@@ -39,9 +39,9 @@ module LambdaInterpreter =
         | false -> max[0 .. max.Length - 1] + "0"
 
     let substitute var term subTerm =
-        let needRename lVariable variable term substitutedTerm =
+        let needRename argName variable term substitutedTerm =
             not (
-                Set.contains lVariable (freeVariables substitutedTerm)
+                Set.contains argName (freeVariables substitutedTerm)
                 && (Set.contains variable (freeVariables term))
             )
 
@@ -52,35 +52,33 @@ module LambdaInterpreter =
             | Application (left, right) ->
                 substituteCPS var left subTerm (fun l ->
                     substituteCPS var right subTerm (fun r -> continuation (Application(l, r))))
-            | LambdaAbstraction (lVar, body) when lVar = var -> continuation (LambdaAbstraction(lVar, body))
-            | LambdaAbstraction (lVar, body) when needRename lVar var term subTerm ->
-                substituteCPS var body subTerm (fun b -> continuation (LambdaAbstraction(lVar, b)))
+            | LambdaAbstraction (argName, body) when argName = var -> continuation (LambdaAbstraction(argName, body))
+            | LambdaAbstraction (argName, body) when needRename argName var term subTerm ->
+                substituteCPS var body subTerm (fun b -> continuation (LambdaAbstraction(argName, b)))
 
-            | LambdaAbstraction (lVar, body) ->
+            | LambdaAbstraction (argName, body) ->
                 let usedVariables = (freeVariables body, freeVariables term) ||> Set.union
-                let newLVar = Variable(generateUniqueName usedVariables)
+                let newargName = Variable(generateUniqueName usedVariables)
 
-                substituteCPS lVar body (Var newLVar) (fun t ->
-                    substituteCPS newLVar t subTerm (fun b -> continuation (LambdaAbstraction(newLVar, b))))
+                substituteCPS argName body (Var newargName) (fun t ->
+                    substituteCPS newargName t subTerm (fun b -> continuation (LambdaAbstraction(newargName, b))))
 
         substituteCPS var term subTerm id
 
     let alphaConversion newVariable term =
         match term with
-        | Var variable -> Var variable
-        | Application (l, r) -> Application(l, r)
-        | LambdaAbstraction (lVar, body) when Set.contains newVariable (freeVariables body) ->
-            LambdaAbstraction(lVar, body)
-        | LambdaAbstraction (lVar, body) -> LambdaAbstraction(newVariable, substitute lVar body (Var newVariable))
+        | LambdaAbstraction (argName, body) when not (Set.contains newVariable (freeVariables body)) ->
+            LambdaAbstraction(newVariable, substitute argName body (Var newVariable))
+        | _ -> term
 
 
     let rec private betaReductionAbstract isRecursive term =
         let rec reduce isRecursive term =
             match term with
-            | Application (LambdaAbstraction (lVar, body), substitutedTerm) ->
+            | Application (LambdaAbstraction (argName, body), substitutedTerm) ->
                 match isRecursive with
-                | false -> substitute lVar body substitutedTerm
-                | true -> reduce isRecursive (substitute lVar body substitutedTerm)
+                | false -> substitute argName body substitutedTerm
+                | true -> reduce isRecursive (substitute argName body substitutedTerm)
             | _ -> term
 
         reduce isRecursive term
@@ -94,9 +92,9 @@ module LambdaInterpreter =
             match term with
             | Var variable -> Var variable
             | Application (l, r) -> Application(l, r)
-            | LambdaAbstraction (lVar, body) ->
+            | LambdaAbstraction (argName, body) ->
                 match body with
-                | Application (l, r) when r = Var lVar -> reduce l
-                | _ ->term
+                | Application (l, r) when r = Var argName -> reduce l
+                | _ -> term
 
         reduce term
