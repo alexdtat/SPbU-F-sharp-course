@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Retest", "Retest\Retest.fsproj", "{16899029-A7B7-4B55-B495-6F6C98D38A36}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Task3Tests", "Task3Tests\Task3Tests.fsproj", "{76EEC798-D754-4F1D-804B-F13FB71F52CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16899029-A7B7-4B55-B495-6F6C98D38A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16899029-A7B7-4B55-B495-6F6C98D38A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16899029-A7B7-4B55-B495-6F6C98D38A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16899029-A7B7-4B55-B495-6F6C98D38A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EEC798-D754-4F1D-804B-F13FB71F52CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EEC798-D754-4F1D-804B-F13FB71F52CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EEC798-D754-4F1D-804B-F13FB71F52CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EEC798-D754-4F1D-804B-F13FB71F52CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
